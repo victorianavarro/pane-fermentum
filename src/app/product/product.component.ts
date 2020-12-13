@@ -24,7 +24,7 @@ export class ProductComponent implements OnInit {
     private httpClient: HttpClient,
     private formBuilder: FormBuilder
   ) {
-    this.checkoutForm = this.formBuilder.group({"name" : ''});
+    this.checkoutForm = this.formBuilder.group({ name: "" });
   }
 
   ngOnInit() {
@@ -51,6 +51,10 @@ export class ProductComponent implements OnInit {
           console.log(error);
         }
       );
+  }
+
+  onChangeEvent(event: any) {
+    console.log(event.target.value);
   }
 
   onSubmit(customerData) {
