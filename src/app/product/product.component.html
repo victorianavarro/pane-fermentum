@@ -1,0 +1,41 @@
+<div class="container">
+	<form [formGroup]="checkoutForm" (ngSubmit)="onSubmit(checkoutForm.value)">
+
+		<div>
+			<label for="name">
+      Name
+    </label>
+			<input id="name" type="text"formControlName="name">
+  </div>
+			<div>
+				<!-- <label for="name">
+      Ungefähre Abholzeit
+    </label>
+    <input id="pick_up" type="range"  min=10 max=14 step=0.25 formControlName="pick_up" thumbLabel tickInterval="1" > -->
+			</div>
+			<button class="button" type="submit">Reservieren</button>
+	</form>
+</div>
+<div class="container">
+  <span><br>Bla</span>
+</div>
+<div class="container">
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th>Menge</th>
+				<th>Produkt</th>
+				<th>Beschreibung</th>
+				<th>Preis</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let product of products">
+				<td><input id={{product.name}} type="number" min=0 value="0"></td>
+				<td>{{product.name}}</td>
+				<td><span>{{product.description}}</span></td>
+				<td><span>{{product.price}}</span></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
