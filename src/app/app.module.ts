@@ -5,7 +5,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 
 import { AppComponent } from "./app.component";
 import { TopBarComponent } from "./top-bar/top-bar.component";
-import { ProductListComponent } from "./product-list/product-list.component";
+
 import { ProductComponent } from "./product/product.component";
 
 import { HttpClientModule } from "@angular/common/http";
@@ -21,7 +21,6 @@ import { HttpClientModule } from "@angular/common/http";
   declarations: [
     AppComponent,
     TopBarComponent,
-    ProductListComponent,
     ProductComponent
   ],
   bootstrap: [AppComponent]

@@ -18,6 +18,7 @@ export class Product {
 })
 export class ProductComponent implements OnInit {
   products: Product[];
+  price_dict: {};
   checkoutForm;
 
   constructor(
@@ -39,7 +40,7 @@ export class ProductComponent implements OnInit {
       .subscribe(
         success => {
           console.log(success);
-          this.products = success;
+          this.products = success;  
           var x = { name: "" };
           for (var i = 0; i < this.products.length; i++) {
             x[this.products[i].id] = "0";
@@ -54,13 +55,28 @@ export class ProductComponent implements OnInit {
   }
 
   onChangeEvent(event: any) {
-    console.log(event.target.value);
+    //console.log(event.target.value);
+    // GET ALL THE INPUT ELEMENTS.
+    var ele = document.getElementsByClassName('amount');
+    var shopping_cart = {}
+    var element_id;
+    var quantity;
+    var to_pay = 0;
+
+    for (var i = 0; i < ele.length; i++) {
+      element_id = ele[i].id;
+      quantity = ele[i].value;
+      console.log(quantity)
+    }
+  
+    console.log(to_pay);
+
   }
+
 
   onSubmit(customerData) {
     // Process checkout data here
-    this.checkoutForm.reset();
-
+    //this.checkoutForm.reset();
     console.warn("Your order has been submitted", customerData);
   }
 }

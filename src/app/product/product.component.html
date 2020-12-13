@@ -19,7 +19,7 @@
 		  </thead>
 		  <tbody>
 		  	<tr *ngFor="let product of products">
-		  		<td><input id={{product.id}} type="number" min=0 value="0" formControlName={{product.id}} (change)="onChangeEvent($event)"></td>
+		  		<td><input id={{product.id}} type="number" min=0 value="0" formControlName={{product.id}} (change)="onChangeEvent($event)" class="amount"></td>
 		  		<td>{{product.name}}</td>
 		  		<td><span>{{product.description}}</span></td>
 		  		<td><span>{{product.price}}</span></td>
