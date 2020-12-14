@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
   selector: "app-root",
@@ -8,18 +9,20 @@ import { ActivatedRoute, Router } from "@angular/router";
 })
 
 export class AppComponent {
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(private httpClient: HttpClient, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit() {
     let url_paras = new URLSearchParams(window.location.search); // todo: is there a better way?
     let token = url_paras.get("token");
-    let valid = 1; // todo: load data to validate token
-    localStorage.setItem("session", JSON.stringify({ token: token }));
-    if (valid) {
+
+    const promise = this.httpClient.get("https://13ncum1gg0.execute-api.eu-central-1.amazonaws.com/order?secret=".concat(token)).toPromise();
+
+    promise.then((data)=>{
+      localStorage.setItem("session", JSON.stringify({ token: token }));
       this.router.navigate(["order"], { relativeTo: this.route, queryParams: { "token" : token} });
-    } else {
+    }).catch((error)=>{
       this.router.navigate(["deny"], { relativeTo: this.route});
-    }
+    });
   }
 }
 
