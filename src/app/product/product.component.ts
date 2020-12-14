@@ -20,6 +20,7 @@ export class ProductComponent implements OnInit {
   products: Product[];
   price_dict: {};
   checkoutForm;
+  token;
 
   constructor(
     private httpClient: HttpClient,
@@ -29,13 +30,15 @@ export class ProductComponent implements OnInit {
   }
 
   ngOnInit() {
+    let session = JSON.parse(localStorage.getItem('session'));
+    this.token = session.token;
     this.getProducts();
   }
 
   getProducts() {
     this.httpClient
       .get<any>(
-        "https://13ncum1gg0.execute-api.eu-central-1.amazonaws.com/order?secret=123459"
+        "https://13ncum1gg0.execute-api.eu-central-1.amazonaws.com/order?secret=".concat(this.token)
       )
       .subscribe(
         success => {

@@ -1,31 +1,27 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, RouterModule, Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"]
 })
+
 export class AppComponent {
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router) 
-    {}
+  constructor(private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit() {
-    let valid = 0;
-    var target;
-    this.route.queryParams.subscribe(params => {
-      console.log(params['token']);
-      let token = params['token'];
-      localStorage.setItem('session', JSON.stringify({ token: token }));
-      if (valid){
-        target = 'order'
-      }else{
-        target = 'deny'
-      }
-    });
-    //this.router.navigate([target], { relativeTo: this.route });
+    let valid = 1;
+    let target;
+    let url_paras = new URLSearchParams(window.location.search);
+    let token = url_paras.get("token");
+    localStorage.setItem("session", JSON.stringify({ token: token }));
+    if (valid) {
+      target = "order";
+    } else {
+      target = "deny";
+    }
+    this.router.navigate([target], { relativeTo: this.route });
   }
 }
 
