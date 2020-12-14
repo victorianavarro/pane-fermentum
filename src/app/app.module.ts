@@ -9,6 +9,7 @@ import { TopBarComponent } from "./top-bar/top-bar.component";
 import { ProductComponent } from "./product/product.component";
 
 import { HttpClientModule } from "@angular/common/http";
+import { DenyPageComponent } from './deny-page/deny-page.component';
 
 
 @NgModule({
@@ -16,12 +17,18 @@ import { HttpClientModule } from "@angular/common/http";
     BrowserModule,
     HttpClientModule, // marco
     ReactiveFormsModule,
-    RouterModule.forRoot([{ path: "", component: ProductComponent }]) // was prodcutlist
+    RouterModule.forRoot(
+      [
+        { path: "order", component: ProductComponent },
+        { path: "deny", component: DenyPageComponent }
+      ]
+    ) // was prodcutlist
   ],
   declarations: [
     AppComponent,
     TopBarComponent,
-    ProductComponent
+    ProductComponent,
+    DenyPageComponent
   ],
   bootstrap: [AppComponent]
 })

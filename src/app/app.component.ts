@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, RouterModule, Router } from "@angular/router";
 
 @Component({
   selector: "app-root",
@@ -7,12 +7,25 @@ import { ActivatedRoute } from "@angular/router";
   styleUrls: ["./app.component.css"]
 })
 export class AppComponent {
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router) 
+    {}
 
   ngOnInit() {
+    let valid = 0;
+    var target;
     this.route.queryParams.subscribe(params => {
-      console.log(params['secret']);
+      console.log(params['token']);
+      let token = params['token'];
+      localStorage.setItem('session', JSON.stringify({ token: token }));
+      if (valid){
+        target = 'order'
+      }else{
+        target = 'deny'
+      }
     });
+    //this.router.navigate([target], { relativeTo: this.route });
   }
 }
 
