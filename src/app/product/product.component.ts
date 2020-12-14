@@ -3,7 +3,8 @@ import { FormBuilder } from "@angular/forms";
 import { Component, OnInit } from "@angular/core";
 import { BigNumber } from "bignumber.js";
 import { ProductDataService } from '../product-data.service';
-
+import { Product } from '../product';
+/*
 export class Product {
   constructor(
     public id: number,
@@ -12,7 +13,7 @@ export class Product {
     public description: string
   ) {}
 }
-
+*/
 @Component({
   selector: "app-product",
   templateUrl: "./product.component.html",
