@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { FormBuilder } from "@angular/forms";
 import { Component, OnInit } from "@angular/core";
 import { BigNumber } from "bignumber.js";
+import { ProductDataService } from '../product-data.service';
 
 export class Product {
   constructor(
@@ -26,20 +27,29 @@ export class ProductComponent implements OnInit {
 
   constructor(
     private httpClient: HttpClient,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private productDataService: ProductDataService
   ) {
     this.checkoutForm = this.formBuilder.group({ name: "" });
   }
 
   ngOnInit() {
-    let session = JSON.parse(localStorage.getItem('session'));
+    let session = JSON.parse(localStorage.getItem('session')); //todo: read from url 
     this.token = session.token;
     this.price_dict = {}
     this.getProducts();
   }
 
   getProducts() {
-    this.httpClient
+    this.products = this.productDataService.getItems();
+    console.log(this.productDataService.getItems()); // why empty?
+    let group = { name: "" };
+    for (var i = 0; i < this.products.length; i++) {
+      group[this.products[i].id] = "0";
+      this.price_dict[this.products[i].id] = this.products[i].price
+    }
+    this.checkoutForm = this.formBuilder.group(group);
+    /*this.httpClient
       .get<any>(
         "https://13ncum1gg0.execute-api.eu-central-1.amazonaws.com/order?secret=".concat(this.token)
       )
@@ -59,6 +69,7 @@ export class ProductComponent implements OnInit {
           console.log(error);
         }
       );
+      */
   }
 
   onChangeEvent(event: any) {

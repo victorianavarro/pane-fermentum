@@ -10,6 +10,7 @@ import { ProductComponent } from "./product/product.component";
 
 import { HttpClientModule } from "@angular/common/http";
 import { DenyPageComponent } from './deny-page/deny-page.component';
+import { ProductDataService } from './product-data.service';
 
 @NgModule({
   imports: [
@@ -29,7 +30,8 @@ import { DenyPageComponent } from './deny-page/deny-page.component';
     ProductComponent,
     DenyPageComponent
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  providers: [ProductDataService]
 })
 export class AppModule {}
 
