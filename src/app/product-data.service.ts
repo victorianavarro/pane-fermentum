@@ -10,6 +10,7 @@ export class ProductDataService {
   items = [];
 
   setItems(items) {
+    console.log(items);
     this.items = items;
   }
 

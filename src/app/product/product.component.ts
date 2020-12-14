@@ -42,7 +42,9 @@ export class ProductComponent implements OnInit {
   }
 
   getProducts() {
-    this.products = this.productDataService.getItems();
+    this.productDataService.getItemsO().subscribe(
+      data => this.products = data
+    );
     console.log(this.productDataService.getItems()); // why empty?
     let group = { name: "" };
     for (var i = 0; i < this.products.length; i++) {
