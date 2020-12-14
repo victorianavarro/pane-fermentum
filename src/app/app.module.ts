@@ -11,7 +11,6 @@ import { ProductComponent } from "./product/product.component";
 import { HttpClientModule } from "@angular/common/http";
 import { DenyPageComponent } from './deny-page/deny-page.component';
 
-
 @NgModule({
   imports: [
     BrowserModule,

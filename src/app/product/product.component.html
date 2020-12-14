@@ -1,35 +1,39 @@
-<div class="container">
-	<form [formGroup]="checkoutForm" (ngSubmit)="onSubmit(checkoutForm.value)">
+<div *ngIf="0 == 0">
+  <div class="container">
+    <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit(checkoutForm.value)">
 
-		<div>
-			<label for="name">
-      Name
-    </label>
-			<input id="name" type="text" formControlName="name">
+      <div>
+        <label for="name">
+        Name
+      </label>
+        <input id="name" type="text" formControlName="name">
+    </div>
+    <div class="container">
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>Menge</th>
+            <th>Produkt</th>
+            <th>Beschreibung</th>
+            <th>Preis</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of products">
+            <td><input id={{product.id}} type="number" min=0 value="0" formControlName={{product.id}} (change)="onChangeEvent($event)" class="amount"></td>
+            <td>{{product.name}}</td>
+            <td><span>{{product.description}}</span></td>
+            <td><span>{{product.price}}</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <button class="button" type="submit">Reservieren</button>
+    </form>
   </div>
   <div class="container">
-	  <table class="table table-bordered table-striped">
-  		<thead>
-	  		<tr>
-		  		<th>Menge</th>
-			  	<th>Produkt</th>
-			  	<th>Beschreibung</th>
-			  	<th>Preis</th>
-			  </tr>
-		  </thead>
-		  <tbody>
-		  	<tr *ngFor="let product of products">
-		  		<td><input id={{product.id}} type="number" min=0 value="0" formControlName={{product.id}} (change)="onChangeEvent($event)" class="amount"></td>
-		  		<td>{{product.name}}</td>
-		  		<td><span>{{product.description}}</span></td>
-		  		<td><span>{{product.price}}</span></td>
-		  	</tr>
-		  </tbody>
-	  </table>
+    <Label class="ad-label" textWrap="true">
+      Bei Abholung zu zahlen: {{total_to_pay}} €
+    </Label>
   </div>
-	<button class="button" type="submit">Reservieren</button>
-	</form>
-</div>
-<div class="container">
-  <span><br>Bla</span>
 </div>

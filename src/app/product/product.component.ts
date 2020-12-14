@@ -1,13 +1,14 @@
 import { HttpClient } from "@angular/common/http";
 import { FormBuilder } from "@angular/forms";
 import { Component, OnInit } from "@angular/core";
+import { BigNumber } from "bignumber.js";
 
 export class Product {
   constructor(
     public id: number,
     public name: string,
     public price: number,
-    description: string
+    public description: string
   ) {}
 }
 
@@ -18,9 +19,10 @@ export class Product {
 })
 export class ProductComponent implements OnInit {
   products: Product[];
-  price_dict: {};
   checkoutForm;
+  price_dict;
   token;
+  total_to_pay = 0;
 
   constructor(
     private httpClient: HttpClient,
@@ -32,6 +34,7 @@ export class ProductComponent implements OnInit {
   ngOnInit() {
     let session = JSON.parse(localStorage.getItem('session'));
     this.token = session.token;
+    this.price_dict = {}
     this.getProducts();
   }
 
@@ -47,6 +50,7 @@ export class ProductComponent implements OnInit {
           var x = { name: "" };
           for (var i = 0; i < this.products.length; i++) {
             x[this.products[i].id] = "0";
+            this.price_dict[this.products[i].id] = this.products[i].price
           }
           this.checkoutForm = this.formBuilder.group(x);
         },
@@ -60,20 +64,20 @@ export class ProductComponent implements OnInit {
   onChangeEvent(event: any) {
     //console.log(event.target.value);
     // GET ALL THE INPUT ELEMENTS.
-    var ele = document.getElementsByClassName('amount');
-    var shopping_cart = {}
-    var element_id;
-    var quantity;
-    var to_pay = 0;
+    let ele = document.getElementsByClassName('amount');
+    let element_id;
+    let quantity: BigNumber;
+    let price: BigNumber;
+    let to_pay = new BigNumber(0);
 
     for (var i = 0; i < ele.length; i++) {
       element_id = ele[i].id;
-      quantity = ele[i].value;
-      console.log(quantity)
+      quantity = new BigNumber(ele[i].value);
+      price=new BigNumber(this.price_dict[element_id]);
+      to_pay = to_pay.plus(quantity.multipliedBy(price));
     }
-  
-    console.log(to_pay);
 
+    this.total_to_pay = to_pay.toFixed(2);
   }
 
 

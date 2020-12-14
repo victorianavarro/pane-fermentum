@@ -11,17 +11,15 @@ export class AppComponent {
   constructor(private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit() {
-    let valid = 1;
-    let target;
-    let url_paras = new URLSearchParams(window.location.search);
+    let url_paras = new URLSearchParams(window.location.search); // todo: is there a better way?
     let token = url_paras.get("token");
+    let valid = 1; // todo: load data to validate token
     localStorage.setItem("session", JSON.stringify({ token: token }));
     if (valid) {
-      target = "order";
+      this.router.navigate(["order"], { relativeTo: this.route, queryParams: { "token" : token} });
     } else {
-      target = "deny";
+      this.router.navigate(["deny"], { relativeTo: this.route});
     }
-    this.router.navigate([target], { relativeTo: this.route });
   }
 }
 
